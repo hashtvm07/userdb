@@ -1,0 +1,22 @@
+# Node.js
+node_modules/
+dist/
+build/
+logs/
+
+# Environment
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Coverage
+coverage/
