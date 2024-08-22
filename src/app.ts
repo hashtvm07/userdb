@@ -1,18 +1,19 @@
 import express, { Application } from 'express';
-import dotenv from 'dotenv';
-import userRoutes from './routes/user-routes';
+import companyRoutes from './routes/company-routes';
+import ersaRoutes from './routes/ersa-routes';
 import errorHandler from './middleware/error-handler';
 import cors from 'cors';
-
-dotenv.config();
+import connectDB from './config/database';
 
 const app: Application = express();
 
-// CORS configuration
+connectDB();
+
 app.use(cors({
-    origin: 'http://localhost:3000', // Allows requests from the Angular application
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify the allowed HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'] // Specify the allowed headers
+    // origin: process.env.ALLOW_ORIGINS,
+    origin: "*",
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Middleware
@@ -20,12 +21,19 @@ app.use(express.json());
 
 // Routes
 app.get('/', (req, res) => {
-    res.redirect('/api/users');
+    try {
+        res.redirect('/api/company');
+    }
+    catch (ex) {
+        res.send('some error occured while calling /api/company: ' + ex)
+    }
 });
 
-app.use('/api/users', userRoutes);
+app.use('/api/company', companyRoutes);
+app.use('/api/ersa', ersaRoutes);
 
 // Error handling
 app.use(errorHandler);
 
 export default app;
+module.exports = app;

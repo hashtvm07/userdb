@@ -5,13 +5,15 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server.js",
-    "build": "tsc",
+    "copy-package": "node -e \"require('fs').copyFileSync('package.json', 'dist/package.json')\"",
+    "copy-webconfig": "node -e \"require('fs').copyFileSync('web.config', 'dist/web.config')\"",
+    "copy-nodemon": "node -e \"require('fs').copyFileSync('nodemon.json', 'dist/nodemon.json')\"",
+    "build": "tsc && npm run copy-package && npm run copy-webconfig && npm run copy-nodemon && start",
     "dev": "nodemon"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
+    "express": "^4.16",
     "mongoose": "^6.0.12"
   },
   "devDependencies": {
