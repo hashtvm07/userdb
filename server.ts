@@ -1,4 +1,3 @@
-import { response } from 'express';
 import app from './src/app';
 
 console.log('reached at server.ts')
