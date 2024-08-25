@@ -2,13 +2,12 @@
   "name": "user-api",
   "version": "1.0.0",
   "description": "Advanced user registration API with TypeScript",
-  "main": "dist/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node server.js",
     "copy-package": "node -e \"require('fs').copyFileSync('package.json', 'dist/package.json')\"",
     "copy-webconfig": "node -e \"require('fs').copyFileSync('web.config', 'dist/web.config')\"",
-    "copy-nodemon": "node -e \"require('fs').copyFileSync('nodemon.json', 'dist/nodemon.json')\"",
-    "build": "tsc && npm run copy-package && npm run copy-webconfig && npm run copy-nodemon && start",
+    "build": "tsc && npm run copy-package && npm run copy-webconfig",
     "dev": "nodemon"
   },
   "dependencies": {
