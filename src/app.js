@@ -1,22 +1,21 @@
-const express = require('express');
-const { companyRoutes } = require('./routes/company-routes');
-const { ersaRoutes } = require('./routes/ersa-routes');
-const { logRoutes } = require('./routes/log-routes');
+require("dotenv").config();
+const connectDB = require("./config/database");
+const express = require("express");
+const { companyRoutes } = require("./routes/company-routes");
+const { userRoutes } = require("./routes/user-routes");
+const { ersaRoutes } = require("./routes/ersa-routes");
+const { logRoutes } = require("./routes/log-routes");
 const app = express();
 
-// Middleware
+connectDB();
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.send('running from poc12..');
+app.get("/", (req, res) => {
+  res.json({ msg: "api is running. vSep.16" });
 });
 app.use("/api/company", companyRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/ersa", ersaRoutes);
 app.use("/api/log", logRoutes);
-// app.post('/api/data', (req, res) => {
-//   const { name, email } = req.body;
-//   res.json({ message: `Received data: Name: ${name}, Email: ${email}` });
-// });
 
 module.exports = app;

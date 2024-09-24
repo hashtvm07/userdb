@@ -19,11 +19,6 @@ ersaReportSchema.pre('save', async function(next) {
     next();
 });
 
-// ersaReportSchema.pre('remove', async function(next) {
-//     await logAudit('ErsaReport', this._id, 'DELETE', this.toObject(), null, 'SYSTEM');
-//     next();
-// });
-
 const ErsaReport = mongoose.model('ErsaReport', ersaReportSchema);
 
 module.exports = ErsaReport;

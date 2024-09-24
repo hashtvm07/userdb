@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 async function copyFile(src, dest) {
   try {
@@ -12,23 +12,36 @@ async function copyFile(src, dest) {
   }
 }
 
-async function copyFiles(dir = '.') {
+async function copyFiles(dir = ".") {
   try {
     const files = await fs.promises.readdir(dir, { withFileTypes: true });
     await Promise.all(
       files.map(async (file) => {
         const filePath = path.join(dir, file.name);
         if (file.isDirectory()) {
-          if (file.name !== 'node_modules' && file.name !== '.git'&& file.name !== 'dist') {
+          if (
+            file.name !== "node_modules" &&
+            file.name !== ".git" &&
+            file.name !== "dist" &&
+            file.name !== "iisnode"
+          ) {
             await copyFiles(filePath);
           }
         } else {
-          await copyFile(filePath, path.join('dist', filePath));
+          if (
+            file.name !== "azure-pipelines.yml" &&
+            file.name !== "copy-files.js" &&
+            file.name !== "nodemon.json" &&
+            file.name !== "package-lock.json" &&
+            file.name !== ".env"
+          ) {
+            await copyFile(filePath, path.join("dist", filePath));
+          }
         }
       })
     );
   } catch (err) {
-    console.error('Error copying files:', err);
+    console.error("Error copying files:", err);
   }
 }
 

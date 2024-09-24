@@ -1,22 +1,29 @@
 const mongoose = require("mongoose");
 const logAudit = require("../utils/audit-logger");
+const Schema = mongoose.Schema;
 
 const companySchema = new mongoose.Schema(
   {
-    email: { type: String, required: true, unique: true },
+    company_id: { type: Number, unique: true },
+    exporter_id: { type: String, unique: true },
+    company_email: String,
     company_name_en: { type: String, required: true, unique: true },
     company_name_ar: String,
-    license_id: { type: String, required: true, unique: true },
-    city: { type: String, required: true },
+    license_id: String,
+    city: String,
     is_exporter: Boolean,
-    address: { type: String, required: true },
-    contact_first_name: { type: String, required: true },
-    contact_last_name: { type: String, required: true },
-    phone: { type: String, required: true, unique: true },
-    hs_code: { type: String, required: true },
+    address: { type: String },
+    mobile: String,
+    landphone: String,
+    hs_code: String,
     hs_code_desc: String,
     activity: String,
     sector: String,
+    destination_country: String,
+    users: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }]
   },
   { timestamps: true }
 );

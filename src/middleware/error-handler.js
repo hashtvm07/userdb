@@ -1,12 +1,14 @@
-const errorHandler = (err, req, res, next) => {
+// const { log } = require("../utils/logger");
+exports.errorHandler = (err, req, res, next) => {
+  console.log('Reached at error handler middle ware')
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
   let error = {
     message: err.message,
-    stack: process.env.NODE_ENV === "production" ? null : err.stack,
+    stack: err.stack,
   };
-  res.json(error);
+  res.status(statusCode);
+  console.log("Error Handler: " + error);
+  res.json({ error: error });
   console.log(error);
 };
 
-module.exports = errorHandler;
